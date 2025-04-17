@@ -1,5 +1,14 @@
-<h1>Chat</h1>
-<p><strong>Sender ID:</strong> <%= @chat.sender_id %></p>
-<p><strong>Receiver ID:</strong> <%= @chat.receiver_id %></p>
-
-<%= link_to "Back", chats_path %>
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-success text-white">
+      <h3>Chat Details</h3>
+    </div>
+    <div class="card-body">
+      <p><strong>Sender ID:</strong> <%= @chat.sender_id %></p>
+      <p><strong>Receiver ID:</strong> <%= @chat.receiver_id %></p>
+    </div>
+    <div class="card-footer">
+      <%= link_to "Back", chats_path, class: "btn btn-outline-success" %>
+    </div>
+  </div>
+</div>
