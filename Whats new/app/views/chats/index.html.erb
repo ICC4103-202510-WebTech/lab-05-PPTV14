@@ -1,11 +1,11 @@
-<h1>Chats</h1>
+<h1 class="mb-4">Chats</h1>
 
-<table class="table">
-  <thead>
+<table class="table table-striped table-hover shadow-sm">
+  <thead class="table-info">
     <tr>
-      <th>Sender</th>
-      <th>Receiver</th>
-      <th>Actions</th>
+      <th>Remitente</th>
+      <th>Destinatario</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +13,9 @@
       <tr>
         <td><%= chat.sender_id %></td>
         <td><%= chat.receiver_id %></td>
-        <td><%= link_to "Show", chat_path(chat) %></td>
+        <td>
+          <%= link_to "Ver", chat_path(chat), class: "btn btn-sm btn-primary" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
