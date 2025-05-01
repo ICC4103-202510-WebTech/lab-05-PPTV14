@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <h2>New Message</h2>
+  <%= form_with model: @message do |form| %>
+    <% if @message.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @message.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.label :chat_id %>
+      <%= form.select :chat_id, Chat.all.collect { |c| ["Chat ##{c.id}", c.id] }, {}, class: "form-select" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :user_id, "Author" %>
+      <%= form.select :user_id, User.all.collect { |u| [u.first_name, u.id] }, {}, class: "form-select" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :body %>
+      <%= form.text_area :body, class: "form-control" %>
+    </div>
+
+    <%= form.submit "Create Message", class: "btn btn-info" %>
+  <% end %>
+</div>

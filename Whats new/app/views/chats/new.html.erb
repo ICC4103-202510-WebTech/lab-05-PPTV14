@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2>New Chat</h2>
+  <%= form_with model: @chat do |form| %>
+    <% if @chat.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @chat.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.label :sender_id, "Sender" %>
+      <%= form.select :sender_id, User.all.collect { |u| [u.first_name, u.id] }, {}, class: "form-select" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :receiver_id, "Receiver" %>
+      <%= form.select :receiver_id, User.all.collect { |u| [u.first_name, u.id] }, {}, class: "form-select" %>
+    </div>
+
+    <%= form.submit "Create Chat", class: "btn btn-success" %>
+  <% end %>
+</div>
