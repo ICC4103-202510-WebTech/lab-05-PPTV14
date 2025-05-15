@@ -8,8 +8,34 @@
       <p><strong>First name:</strong> <%= @user.first_name %></p>
       <p><strong>Last name:</strong> <%= @user.last_name %></p>
     </div>
-    <div class="card-footer">
+    <div class="card-footer d-flex justify-content-between">
       <%= link_to "Back", users_path, class: "btn btn-outline-primary" %>
+      <%= link_to "Editar", edit_user_path(@user), class: "btn btn-primary ms-2" %>
     </div>
+  </div>
+
+  <div class="mt-4">
+    <h4>Chats del usuario</h4>
+    <ul class="list-group">
+      <% (@user.sent_chats + @user.received_chats).uniq.each do |chat| %>
+        <li class="list-group-item">
+          <%= link_to "Chat ##{chat.id}", chat_path(chat) %> con 
+          <%= chat.sender == @user ? chat.receiver.full_name : chat.sender.full_name %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- 🔽 Agregado: mensajes enviados -->
+  <div class="mt-4">
+    <h4>Mensajes enviados</h4>
+    <ul class="list-group">
+      <% @user.messages.each do |message| %>
+        <li class="list-group-item">
+          <%= truncate(message.body, length: 60) %> en 
+          <%= link_to "Chat ##{message.chat_id}", chat_path(message.chat) %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

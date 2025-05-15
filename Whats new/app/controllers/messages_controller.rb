@@ -20,6 +20,19 @@ class MessagesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+  def edit
+    @message = Message.find(params[:id])
+  end
+
+  def update
+    @message = Message.find(params[:id])
+    if @message.update(message_params)
+      redirect_to @message, notice: 'Message updated successfully.'
+    else
+      render :edit
+    end
+  end
+
 
   private
 
