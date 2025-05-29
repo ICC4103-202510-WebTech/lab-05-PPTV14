@@ -21,7 +21,10 @@
         <td><%= user.messages.count %></td> 
         <td>
           <%= link_to "Ver", user_path(user), class: "btn btn-sm btn-primary me-1" %>
-          <%= link_to "Editar usuario", edit_user_path(user), class: "btn btn-sm btn-secondary" %>
+
+          <% if user == current_user %>
+            <%= link_to "Editar usuario", edit_user_path(user), class: "btn btn-sm btn-secondary" %>
+          <% end %>
         </td>
       </tr>
     <% end %>
