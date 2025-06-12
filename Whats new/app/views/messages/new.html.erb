@@ -1,6 +1,7 @@
 <div class="container mt-4">
-  <h2>New Message</h2>
-  <%= form_with model: @message do |form| %>
+  <h2 class="mb-4">New Message</h2>
+
+  <%= form_with model: @message, local: true do |form| %>
     <% if @message.errors.any? %>
       <div class="alert alert-danger">
         <ul>
@@ -12,20 +13,19 @@
     <% end %>
 
     <div class="mb-3">
-      <%= form.label :chat_id %>
-      <%= form.select :chat_id, Chat.all.collect { |c| ["Chat ##{c.id}", c.id] }, {}, class: "form-select" %>
+      <%= form.label :chat_id, "Select Chat", class: "form-label" %>
+      <%= form.select :chat_id,
+                      Chat.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+                          .map { |c| ["Chat with #{c.sender_id == current_user.id ? c.receiver.full_name : c.sender.full_name}", c.id] },
+                      {},
+                      class: "form-select" %>
     </div>
 
     <div class="mb-3">
-      <%= form.label :user_id, "Author" %>
-      <%= form.select :user_id, User.all.collect { |u| [u.first_name, u.id] }, {}, class: "form-select" %>
+      <%= form.label :body, "Message", class: "form-label" %>
+      <%= form.text_area :body, class: "form-control", rows: 4, placeholder: "Type your message here..." %>
     </div>
 
-    <div class="mb-3">
-      <%= form.label :body %>
-      <%= form.text_area :body, class: "form-control" %>
-    </div>
-
-    <%= form.submit "Create Message", class: "btn btn-info" %>
+    <%= form.submit "Send Message", class: "btn btn-info" %>
   <% end %>
 </div>

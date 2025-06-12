@@ -1,6 +1,7 @@
 <div class="container mt-4">
-  <h2>New Chat</h2>
-  <%= form_with model: @chat do |form| %>
+  <h2>Start a New Chat</h2>
+
+  <%= form_with model: @chat, local: true do |form| %>
     <% if @chat.errors.any? %>
       <div class="alert alert-danger">
         <ul>
@@ -12,13 +13,11 @@
     <% end %>
 
     <div class="mb-3">
-      <%= form.label :sender_id, "Sender" %>
-      <%= form.select :sender_id, User.all.collect { |u| [u.first_name, u.id] }, {}, class: "form-select" %>
-    </div>
-
-    <div class="mb-3">
-      <%= form.label :receiver_id, "Receiver" %>
-      <%= form.select :receiver_id, User.all.collect { |u| [u.first_name, u.id] }, {}, class: "form-select" %>
+      <%= form.label :receiver_id, "Select recipient", class: "form-label" %>
+      <%= form.select :receiver_id,
+            User.where.not(id: current_user.id).map { |u| [u.full_name, u.id] },
+            {},
+            class: "form-select", required: true %>
     </div>
 
     <%= form.submit "Create Chat", class: "btn btn-success" %>

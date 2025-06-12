@@ -2,12 +2,17 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
-  def index; end
-  def show; end
-  def new; end
+  def index
+  end
+
+  def show
+  end
+
+  def new
+  end
 
   def create
-    @message.user = current_user
+    @message.user = current_user  
     if @message.save
       redirect_to @message, notice: 'Message was successfully created.'
     else
@@ -15,7 +20,8 @@ class MessagesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @message.update(message_params)

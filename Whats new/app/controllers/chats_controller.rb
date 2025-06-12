@@ -3,14 +3,14 @@ class ChatsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @chats = Chat.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+    @chats = Chat.involving(current_user)
   end
 
   def show; end
   def new; end
 
   def create
-    @chat.sender_id = current_user.id
+    @chat.sender = current_user
     if @chat.save
       redirect_to @chat, notice: 'Chat was successfully created.'
     else
